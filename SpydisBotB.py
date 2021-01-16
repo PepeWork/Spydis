@@ -19,7 +19,7 @@ Created on Sat Jan 16 16:20:47 2021
 from imports import *
 
 
-bot.run(TOKEN)
+bot.run(TOKEN_B)
 
 
 
