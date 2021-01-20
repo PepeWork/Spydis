@@ -15,6 +15,7 @@ pip instal pynacl to interact with voice channels, Network and Crypto
 Created on Sat Jan 16 16:20:47 2021
 @author: Axel
 """
+bSpeakerBot = True
 
 from imports import *
 

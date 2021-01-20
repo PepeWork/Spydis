@@ -31,6 +31,8 @@ load_dotenv()
 TOKEN = os.getenv('DISCORD_TOKEN')
 TOKEN_B = os.getenv('DISCORD_TOKEN_B')
 GUILD = os.getenv('DISCORD_GUILD')
+if 'bSpeakerBot' not in globals():    
+    bSpeakerBot = False
 
 #client = discord.Client()
 bot = commands.Bot(command_prefix='!') # use with bot decorator
@@ -77,7 +79,7 @@ async def goListen(ctx):
 @bot.command(name='spylis', help="First connect to the channel where you want to stay and hear people from other channel(s), then type this command to put a Speaker bot in it.")
 async def goTell(ctx):
     """
-    A Speaker bot that receives sound from one or multiple Microphone bot(s)
+    A Speaker bot that receives sound from one or multiple Microphone bot(s) and acts as a Speaker in its channel.
     """
     sChannel = "Not connected to any voice channel"
     bConnectStep = False
@@ -87,9 +89,28 @@ async def goTell(ctx):
             bConnectStep = True
     response = "Will transmit sound from listeners to where "+str(ctx.author.display_name)+" is connected : "+sChannel
     await ctx.send(response)
+    sCommand = "!spycon "+str()
+    await ctx.send(sCommand)
     if bConnectStep:
-        await ctx.author.voice.channel.connect()
+        await hVoiceConnection = ctx.author.voice.channel.connect()
+        # Here we should read the audio present in the channel but there isn't yet any simple way to do it.
+        # see https://github.com/Rapptz/discord.py/issues/1094
+        # and https://github.com/Rapptz/discord.py/issues/444
+        # needs probably more work than I intend to do, websockets ack rec convert audio async etc
+        
 
+@bot.command(name='spycon', help="Temporary command written by one bot to connect to the other one.")
+async def goTell(ctx):
+    """
+    A bot telling the other one he is ready to be linked.
+    """
+    sChannel = "Not connected to any voice channel"
+    bConnectStep = False
+    if ctx.author.voice is not None:
+        if ctx.author.voice.channel is not None:
+            sChannel = str(ctx.author.voice.channel)
+            bConnectStep = True
+    
 
 
 
